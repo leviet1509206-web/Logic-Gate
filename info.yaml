@@ -3,7 +3,7 @@ yaml_version: 6
 project:
   title: "1-bit Full Adder"
   author: "Le Viet"
-  description: "Implementation of a 1-bit Full Adder"
+  description: "Implementation of a 1-bit Full Adder using combinational logic."
   language: "Verilog"
 
   tiles: "1x1"
@@ -11,7 +11,7 @@ project:
   top_module: "tt_um_example"
 
   source_files:
-    - "project.v"
+    - "src/project.v"
 
 pinout:
   ui[0]: "A"
