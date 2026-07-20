@@ -1,20 +1,67 @@
-<!---
+# 1-bit Full Adder
 
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
+## What it does
 
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
+This project implements a combinational 1-bit Full Adder.
+
+### Inputs
+
+| Pin | Function |
+|-----|----------|
+| ui[0] | A |
+| ui[1] | B |
+| ui[2] | Carry In (Cin) |
+
+### Outputs
+
+| Pin | Function |
+|-----|----------|
+| uo[0] | Sum |
+| uo[1] | Carry Out (Cout) |
+
+---
 
 ## How it works
 
-Explain how your project works
+The design implements the standard Boolean equations of a Full Adder.
+
+### Sum
+
+```
+Sum = A XOR B XOR Cin
+```
+
+### Carry
+
+```
+Cout = (A AND B) OR (Cin AND (A XOR B))
+```
+
+Only the first two output pins are used.
+
+All remaining outputs are tied to logic 0.
+
+---
 
 ## How to test
 
-Explain how to use your project
+Apply every combination of the three inputs.
+
+| A | B | Cin | Sum | Carry |
+|:-:|:-:|:-:|:-:|:-:|
+|0|0|0|0|0|
+|0|0|1|1|0|
+|0|1|0|1|0|
+|0|1|1|0|1|
+|1|0|0|1|0|
+|1|0|1|0|1|
+|1|1|0|0|1|
+|1|1|1|1|1|
+
+The supplied Cocotb test automatically verifies all eight combinations.
+
+---
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+No external hardware is required.
