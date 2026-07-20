@@ -1,66 +1,42 @@
-# 1-bit Full Adder
-
-## What it does
-
-This project implements a combinational 1-bit Full Adder.
-
-### Inputs
-
-| Pin | Function |
-|-----|----------|
-| ui[0] | A |
-| ui[1] | B |
-| ui[2] | Carry In (Cin) |
-
-### Outputs
-
-| Pin | Function |
-|-----|----------|
-| uo[0] | Sum |
-| uo[1] | Carry Out (Cout) |
-
----
-
 ## How it works
 
-The design implements the standard Boolean equations of a Full Adder.
+This project implements a combinational one-bit full adder.
 
-### Sum
+The three input bits are:
 
-```
-Sum = A XOR B XOR Cin
-```
+- `ui_in[0]`: A
+- `ui_in[1]`: B
+- `ui_in[2]`: Cin
 
-### Carry
+The two output bits are:
 
-```
-Cout = (A AND B) OR (Cin AND (A XOR B))
-```
+- `uo_out[0]`: Sum
+- `uo_out[1]`: Cout
 
-Only the first two output pins are used.
+The logic equations are:
 
-All remaining outputs are tied to logic 0.
+`Sum = A XOR B XOR Cin`
 
----
+`Cout = (A AND B) OR (A AND Cin) OR (B AND Cin)`
+
+The clock and reset inputs are not used because this is a purely
+combinational circuit.
 
 ## How to test
 
-Apply every combination of the three inputs.
+Apply A, B, and Cin through `ui_in[2:0]`, then read Sum and Cout from
+`uo_out[1:0]`.
 
-| A | B | Cin | Sum | Carry |
-|:-:|:-:|:-:|:-:|:-:|
-|0|0|0|0|0|
-|0|0|1|1|0|
-|0|1|0|1|0|
-|0|1|1|0|1|
-|1|0|0|1|0|
-|1|0|1|0|1|
-|1|1|0|0|1|
-|1|1|1|1|1|
-
-The supplied Cocotb test automatically verifies all eight combinations.
-
----
+| A | B | Cin | Sum | Cout |
+|---|---|-----|-----|------|
+| 0 | 0 | 0   | 0   | 0    |
+| 0 | 0 | 1   | 1   | 0    |
+| 0 | 1 | 0   | 1   | 0    |
+| 0 | 1 | 1   | 0   | 1    |
+| 1 | 0 | 0   | 1   | 0    |
+| 1 | 0 | 1   | 0   | 1    |
+| 1 | 1 | 0   | 0   | 1    |
+| 1 | 1 | 1   | 1   | 1    |
 
 ## External hardware
 
