@@ -1,46 +1,55 @@
+/*
+ * Copyright (c) 2026 nguyenvandongsn97-sys
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 `default_nettype none
 
-module tt_um_example (
+module tt_um_nguyenvandongsn97_sys_full_adder (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
-    input  wire [7:0] uio_in,   // IO inputs
-    output wire [7:0] uio_out,  // IO outputs
-    output wire [7:0] uio_oe,   // IO output enable
-    input  wire       ena,
-    input  wire       clk,
-    input  wire       rst_n
+
+    input  wire [7:0] uio_in,   // Bidirectional input path
+    output wire [7:0] uio_out,  // Bidirectional output path
+    output wire [7:0] uio_oe,   // Bidirectional output enable
+
+    input  wire ena,            // Enabled when the project is selected
+    input  wire clk,            // Unused: combinational design
+    input  wire rst_n           // Unused: combinational design
 );
 
-    //=============================
-    // Input Assignment
-    //=============================
-    wire A   = ui_in[0];
-    wire B   = ui_in[1];
-    wire Cin = ui_in[2];
+    wire a;
+    wire b;
+    wire cin;
+    wire sum_bit;
+    wire cout_bit;
 
-    //=============================
-    // Full Adder Logic
-    //=============================
-    wire Sum;
-    wire Cout;
+    assign a   = ui_in[0];
+    assign b   = ui_in[1];
+    assign cin = ui_in[2];
 
-    assign Sum  = A ^ B ^ Cin;
-    assign Cout = (A & B) | (Cin & (A ^ B));
+    // One-bit full-adder equations
+    assign sum_bit  = a ^ b ^ cin;
+    assign cout_bit = (a & b) | (a & cin) | (b & cin);
 
-    //=============================
-    // Output Assignment
-    //=============================
-    assign uo_out[0] = Sum;
-    assign uo_out[1] = Cout;
+    // uo_out[0] = Sum
+    // uo_out[1] = Cout
+    assign uo_out = {6'b000000, cout_bit, sum_bit};
 
-    // Các chân còn lại xuất 0
-    assign uo_out[7:2] = 6'b000000;
-
-    // Không sử dụng IO mở rộng
+    // Bidirectional pins are not used
     assign uio_out = 8'b00000000;
     assign uio_oe  = 8'b00000000;
 
-    // Tránh warning
-    wire _unused = &{ena, clk, rst_n, uio_in};
+    // Reference all unused inputs to avoid lint warnings
+    wire _unused = &{
+        ena,
+        clk,
+        rst_n,
+        ui_in[7:3],
+        uio_in,
+        1'b0
+    };
 
 endmodule
+
+`default_nettype wire
