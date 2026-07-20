@@ -1,3 +1,15 @@
 {
-  "DESIGN_NAME": "tt_um_example"
+  "DESIGN_NAME": "tt_um_example",
+
+  "CLOCK_PORT": "",
+
+  "CLOCK_PERIOD": 10,
+
+  "FP_PDN_AUTO_ADJUST": true,
+
+  "PL_TARGET_DENSITY": 0.35,
+
+  "DIE_AREA": "0 0 161.00 111.52",
+
+  "FP_SIZING": "absolute"
 }
