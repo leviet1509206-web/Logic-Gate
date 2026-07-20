@@ -40,15 +40,9 @@ module tt_um_nguyenvandongsn97_sys_full_adder (
     assign uio_out = 8'b00000000;
     assign uio_oe  = 8'b00000000;
 
-    // Reference all unused inputs to avoid lint warnings
-    wire _unused = &{
-        ena,
-        clk,
-        rst_n,
-        ui_in[7:3],
-        uio_in,
-        1'b0
-    };
+    // Concat all unused inputs to prevent lint warnings safely
+    wire [14:0] _unused;
+    assign _unused = {ena, clk, rst_n, ui_in[7:3], uio_in};
 
 endmodule
 
