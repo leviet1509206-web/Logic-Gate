@@ -7,7 +7,6 @@ project:
   language: "Verilog"
 
   clock_hz: 0
-
   tiles: "1x1"
 
   top_module: "tt_um_example"
